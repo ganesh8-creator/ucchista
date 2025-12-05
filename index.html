@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ఉచ్చిష్ట గణపతి - Image Slideshow</title>
+    <title>శ్రీ వినాయక దేవాలయం</title>
+    <audio id="bgMantra" src="om-gam-ganapathi.mp3" loop></audio>
     <style>
-        /* RESET */
+        /* [Previous CSS remains exactly the same - keeping all enhanced styles] */
         * {
             margin: 0;
             padding: 0;
@@ -20,10 +21,10 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: #000; /* solid background so no white shows */
+            background: radial-gradient(circle at top, #1f2933 0%, #000 55%, #050816 100%);
+            color: #fff;
         }
 
-        /* BACKGROUND SLIDESHOW */
         .background-container {
             position: absolute;
             top: 0;
@@ -31,131 +32,452 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            overflow: hidden;
-
+            overflow: visible;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-
-            /* Start with first image */
-            background-image: url('ganesh1.png');
-            animation: ganeshSlideshow 20s infinite;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Keyframes: only opacity changes, image switches on key points */
-        @keyframes ganeshSlideshow {
-            /* Image 1 */
-            0% {
-                background-image: url('ganesh1.png');
-                opacity: 1;
-            }
-            33% {
-                background-image: url('ganesh1.png');
-                opacity: 1;
-            }
-
-            /* Image 2 */
-            34% {
-                background-image: url('ganesh2.png');
-                opacity: 0.4; /* not 0 to avoid full transparency */
-            }
-            66% {
-                background-image: url('ganesh2.png');
-                opacity: 1;
-            }
-
-            /* Image 3 */
-            67% {
-                background-image: url('ganesh3.png');
-                opacity: 0.4;
-            }
-            100% {
-                background-image: url('ganesh3.png');
-                opacity: 1;
-            }
-        }
-
-        /* Dark overlay */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.55);
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.03), rgba(0,0,0,0.6));
             z-index: -1;
+            transition: opacity 0.8s ease;
         }
 
-        /* GLASSMORPHISM CARD */
+        .orb {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 200, 120, 0.4), transparent 70%);
+            filter: blur(1px);
+            animation: floatOrb 14s ease-in-out infinite alternate;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+
+        .orb.orb-left { top: 10%; left: -6%; }
+        .orb.orb-right { bottom: -5%; right: -8%; animation-delay: 4s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.6; }
+            100% { transform: translate3d(30px, -40px, 0) scale(1.1); opacity: 0.9; }
+        }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(0.02px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border-radius: 20px;
-            padding: 40px 20px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 40px 28px;
             text-align: center;
             color: white;
             width: 85%;
-            max-width: 400px;
+            max-width: 420px;
             margin: 20px;
             z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* TEXT */
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            letter-spacing: 1px;
-            font-weight: 700;
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.18));
+            opacity: 0.2;
+            pointer-events: none;
+            mix-blend-mode: screen;
         }
+
+        .glass-card::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: conic-gradient(from 0deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1, #fbc2eb, #ff9a9e);
+            opacity: 0.35;
+            z-index: -1;
+            animation: rotateBorder 18s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+/* container for logo + title */
+.logo-title {
+    display: flex;              /* flex is enough, inline-flex not needed */
+    align-items: center;        /* vertical center alignment */
+    justify-content: center;    /* horizontal center as a group */
+    gap: 4px;                   /* small space between logo and text */
+    margin-bottom: 16px;
+}
+
+/* logo image */
+.ganesh-logo {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+    border-radius: 50%;         /* perfect circle */
+    object-fit: cover;
+    border: 3px solid rgba(192, 136, 33, 0.9);
+    box-shadow: 0 0 12px rgba(255, 210, 127, 0.9);
+}
+
+/* title text */
+h1 {
+    position:relative;
+    font-size: 129%;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin: 0;                  /* no extra gap */
+}
+
+/* ensure pseudo-icon is disabled */
+h1::before {
+    content: none;
+}
+
+/* responsive tweaks: use px, not % */
+@media (max-width: 480px) {
+    .ganesh-logo {
+        width: 60px;
+        height: 60px;
+    }
+    h1 {
+        font-size: 1.7rem;
+    }
+}
 
         p {
+            position: relative;
             font-size: 1rem;
             margin-bottom: 30px;
-            line-height: 1.5;
-            color: #f0f0f0;
+            line-height: 1.6;
+            color: #f5f5f5;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
         }
 
-        /* BUTTON */
+        .divider {
+            position: relative;
+            width: 80px;
+            height: 2px;
+            margin: 0 auto 24px auto;
+            background: linear-gradient(90deg, transparent, #ffd27f, transparent);
+            box-shadow: 0 0 12px rgba(255, 210, 127, 0.65);
+            transition: all 0.4s ease;
+        }
+
         .btn {
+            position: relative;
             text-decoration: none;
-            padding: 12px 35px;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            padding: 12px 40px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #ffc857 100%);
             color: white;
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            letter-spacing: 1.3px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
             display: inline-block;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-size: 200% 100%;
+            background-position: left center;
+            cursor: pointer;
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.6), transparent 45%, transparent 55%, rgba(255, 255, 255, 0.5));
+            transform: translateX(-100%);
+            transition: transform 0.45s ease;
+            pointer-events: none;
+            mix-blend-mode: screen;
         }
 
-        /* MOBILE */
-        @media (max-width: 380px) {
-            h1 { font-size: 1.6rem; }
-            .glass-card { padding: 30px 15px; }
+        .btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 25px rgba(0,0,0,0.65); background-position: right center; }
+        .btn:hover::before { transform: translateX(100%); }
+        .btn:active { transform: translateY(1px) scale(0.99); box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #15c223, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 45s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.7rem; }
+            h1::before { width: 32px; height: 32px; }
+            .glass-card { padding: 30px 18px; }
+        }
+
+        @media (max-width: 360px) {
+            h1 { font-size: 1.5rem; }
+            .btn { padding: 10px 28px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
+    <div class="background-container" id="bgContainer"></div>
+    <div class="overlay" id="overlay"></div>
+    <div class="orb orb-left" id="orbLeft"></div>
+    <div class="orb orb-right" id="orbRight"></div>
 
-    <div class="background-container"></div>
-    <div class="overlay"></div>
-
-    <div class="glass-card">
-        <h1>ఉచ్చిష్ట గణపతి దండగర్ర</h1>
-        <p>May the divine blessings bring prosperity and remove all obstacles.</p>
-       <a href="home-main.html" class="btn">Enter</a>
+   <div class="glass-card" id="glassCard">
+    <div class="logo-title">
+        <img src="ganesh_01.png" alt="Ganesh Logo" class="ganesh-logo">
+        <h1 id="title">శ్రీ వినాయక దేవాలయం</h1>
     </div>
+    <div class="divider" id="divider"></div>
+    <p id="description">May the divine blessings bring prosperity and remove all obstacles.</p>
+    <a href="home-main.html" class="btn" id="enterBtn">Enter</a>
+</div>
 
+
+    <script>
+        class DynamicGaneshPage {
+            constructor() {
+                this.images = ['ganesh1.png', 'ganesh2.png', 'ganesh3.png'];
+                this.currentImageIndex = 0;
+                this.particles = [];
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.startImageSlideshow();
+                this.createParticles();
+                this.animateElements();
+                this.addMouseInteraction();
+            }
+
+            setupEventListeners() {
+                // Dynamic title glow on mouse enter
+                document.getElementById('title').addEventListener('mouseenter', () => {
+                    this.animateTitleGlow();
+                });
+
+                // Button ripple effect
+                document.getElementById('enterBtn').addEventListener('click', (e) => {
+                    this.createRipple(e);
+                    this.buttonClickAnimation();
+                });
+
+                // Card hover effects
+                document.getElementById('glassCard').addEventListener('mouseenter', () => {
+                    this.cardHoverEffect(true);
+                });
+                document.getElementById('glassCard').addEventListener('mouseleave', () => {
+                    this.cardHoverEffect(false);
+                });
+            }
+
+            startImageSlideshow() {
+                const bgContainer = document.getElementById('bgContainer');
+                let progress = 0;
+                const duration = 20000; // 20 seconds
+
+                const updateSlideshow = () => {
+                    progress += 16; // ~60fps
+                    const percentage = (progress % duration) / duration;
+                    
+                    // Smooth image transitions
+                    if (percentage < 0.33) {
+                        this.currentImageIndex = 0;
+                        bgContainer.style.opacity = Math.min(1, percentage * 3);
+                    } else if (percentage < 0.66) {
+                        this.currentImageIndex = 1;
+                        bgContainer.style.opacity = Math.min(1, (percentage - 0.33) * 3);
+                    } else {
+                        this.currentImageIndex = 2;
+                        bgContainer.style.opacity = Math.min(1, (percentage - 0.66) * 3);
+                    }
+                    
+                    bgContainer.style.backgroundImage = `url(${this.images[this.currentImageIndex]})`;
+                    requestAnimationFrame(updateSlideshow);
+                };
+                updateSlideshow();
+            }
+
+            createParticles() {
+                const createParticle = () => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    document.body.appendChild(particle);
+                    this.particles.push(particle);
+
+                    // Remove old particles
+                    if (this.particles.length > 15) {
+                        const old = this.particles.shift();
+                        old.remove();
+                    }
+                };
+
+                // Create particles periodically
+                setInterval(createParticle, 800);
+                createParticle(); // Initial particle
+            }
+
+            animateElements() {
+                // Breathing animation for title
+                let titleScale = 1;
+                setInterval(() => {
+                    titleScale = titleScale === 1 ? 1.02 : 1;
+                    document.getElementById('title').style.transform = `scale(${titleScale})`;
+                }, 3000);
+
+                // Pulsing divider
+                setInterval(() => {
+                    const divider = document.getElementById('divider');
+                    divider.style.width = Math.random() * 40 + 60 + 'px';
+                    divider.style.boxShadow = `0 0 ${Math.random() * 8 + 8}px rgba(255, 210, 127, ${0.65 + Math.random() * 0.2})`;
+                }, 2000);
+
+                // Overlay breathing
+                let overlayOpacity = 1;
+                setInterval(() => {
+                    overlayOpacity = overlayOpacity === 1 ? 0.95 : 1;
+                    document.getElementById('overlay').style.opacity = overlayOpacity;
+                }, 5000);
+
+                // Orbs random movement
+                setInterval(() => {
+                    const orbs = [document.getElementById('orbLeft'), document.getElementById('orbRight')];
+                    orbs.forEach(orb => {
+                        orb.style.transform += ` translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+                    });
+                }, 4000);
+            }
+
+            animateTitleGlow() {
+                const title = document.getElementById('title');
+                title.style.filter = 'drop-shadow(0 0 15px rgba(255, 177, 66, 0.9)) brightness(1.2)';
+                title.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    title.style.filter = '';
+                    title.style.transform = '';
+                }, 800);
+            }
+
+            createRipple(e) {
+                const btn = e.currentTarget;
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.7);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+                btn.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            }
+
+            buttonClickAnimation() {
+                const btn = document.getElementById('enterBtn');
+                btn.style.transform = 'scale(0.95) translateY(4px)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 150);
+            }
+
+            cardHoverEffect(hover) {
+                const card = document.getElementById('glassCard');
+                const scale = hover ? '1.02' : '1';
+                const blur = hover ? '20px' : '16px';
+                const shadow = hover ? 
+                    '0 25px 55px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08)' : 
+                    '0 18px 45px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)';
+                
+                card.style.transform = `scale(${scale})`;
+                card.style.backdropFilter = `blur(${blur})`;
+                card.style.boxShadow = shadow;
+            }
+
+            addMouseInteraction() {
+                document.addEventListener('mousemove', (e) => {
+                    const x = e.clientX / window.innerWidth;
+                    const y = e.clientY / window.innerHeight;
+                    
+                    // Parallax effect for orbs
+                    const orbLeft = document.getElementById('orbLeft');
+                    const orbRight = document.getElementById('orbRight');
+                    
+                    orbLeft.style.transform += ` translate(${x * 10 - 5}px, ${y * 10 - 5}px)`;
+                    orbRight.style.transform += ` translate(${y * 8 - 4}px, ${x * -8 + 4}px)`;
+                });
+            }
+        }
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new DynamicGaneshPage();
+        });
+
+        document.addEventListener('click', function enableAudio() {
+        const audio = document.getElementById('bgMantra');
+          if (audio) {
+             audio.play().catch(() => {
+              // if play fails, you can show a custom "Enable sound" button if needed
+             });
+             }
+        document.removeEventListener('click', enableAudio);
+         });
+    </script>
 </body>
 </html>
