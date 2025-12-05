@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ఉచ్చిష్ట గణపతి - Gallery Carousel</title> 
+    <style>
+        /* 1. RESET AND BASIC SETUP */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #0d0d1a;
+            color: white;
+        }
+
+        /* 2. NAVIGATION BAR (Consistent Styling) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .navbar-links a.active {
+            opacity: 1;
+            font-weight: bold;
+            text-shadow: 0 0 5px #FF8E53;
+        }
+        
+        .navbar-links a:hover {
+            opacity: 1;
+            text-shadow: 0 0 5px #FF6B6B;
+        }
+
+        /* 3. CAROUSEL & GALLERY STYLING */
+        .content-section {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .gallery-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #FF8E53;
+        }
+
+        /* CAROUSEL CONTAINER STYLES */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            touch-action: pan-y; /* Allows horizontal swiping */
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* NAVIGATION BUTTONS */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            z-index: 5;
+            font-size: 1.5rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .carousel-btn:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        #prevBtn {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        #nextBtn {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+            }
+            .content-section {
+                padding: 30px 15px;
+            }
+            .carousel-btn {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-logo">ఉచ్చిష్ట గణపతి</div>
+        <div class="navbar-links">
+            <a href="home-main.html">Home</a>
+            <a href="gallery.html" class="active">Gallery</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <div class="gallery-card">
+            <h2>దైవిక చిత్ర గ్యాలరీ (Divine Image Gallery)</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-slides" id="carouselSlides">
+                    <p style="padding: 50px; text-align: center; color: #FF8E53;">Loading images...</p>
+                </div>
+
+                <button class="carousel-btn" id="prevBtn">&#10094;</button>
+                <button class="carousel-btn" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="gallery.js"></script> 
+</body>
+</html>
