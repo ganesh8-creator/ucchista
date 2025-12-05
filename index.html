@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ఉచ్చిష్ట గణపతి - Image Slideshow</title>
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000; /* solid background so no white shows */
+        }
+
+        /* BACKGROUND SLIDESHOW */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+
+            /* Start with first image */
+            background-image: url('ganesh1.png');
+            animation: ganeshSlideshow 20s infinite;
+        }
+
+        /* Keyframes: only opacity changes, image switches on key points */
+        @keyframes ganeshSlideshow {
+            /* Image 1 */
+            0% {
+                background-image: url('ganesh1.png');
+                opacity: 1;
+            }
+            33% {
+                background-image: url('ganesh1.png');
+                opacity: 1;
+            }
+
+            /* Image 2 */
+            34% {
+                background-image: url('ganesh2.png');
+                opacity: 0.4; /* not 0 to avoid full transparency */
+            }
+            66% {
+                background-image: url('ganesh2.png');
+                opacity: 1;
+            }
+
+            /* Image 3 */
+            67% {
+                background-image: url('ganesh3.png');
+                opacity: 0.4;
+            }
+            100% {
+                background-image: url('ganesh3.png');
+                opacity: 1;
+            }
+        }
+
+        /* Dark overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: -1;
+        }
+
+        /* GLASSMORPHISM CARD */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(0.02px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            width: 85%;
+            max-width: 400px;
+            margin: 20px;
+            z-index: 1;
+        }
+
+        /* TEXT */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            color: #f0f0f0;
+        }
+
+        /* BUTTON */
+        .btn {
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
+        }
+
+        /* MOBILE */
+        @media (max-width: 380px) {
+            h1 { font-size: 1.6rem; }
+            .glass-card { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container"></div>
+    <div class="overlay"></div>
+
+    <div class="glass-card">
+        <h1>ఉచ్చిష్ట గణపతి</h1>
+        <p>May the divine blessings bring prosperity and remove all obstacles.</p>
+       <a href="home-main.html" class="btn">Enter</a>
+    </div>
+
+</body>
+</html>
